@@ -3,7 +3,10 @@ import numpy as np
 import PIL.Image as Image
 import tensorflow as tf
 import tensorflow_hub as hub
-
+from gtts import gTTS
+import IPython
+#from IPython.core.display import display
+from IPython.display import Audio
 # Load the TensorFlow Hub model
 IMAGE_SHAPE = (224, 224)
 model = tf.keras.Sequential([hub.KerasLayer('https://tfhub.dev/google/aiy/vision/classifier/plants_V1/1', input_shape=IMAGE_SHAPE + (3,))])
@@ -74,6 +77,12 @@ if uploaded_image is not None:
             predicted_label = labels[predicted_index+3]
             st.write(f"Prediction: {predicted_label}")
             
+            tts = gTTS(f"The predicted herb is {predicted_label}", lang="en")
+            tts.save('prediction.mp3')
+
+            # Play the voice description
+            audio = open('prediction.mp3', 'rb').read()
+            st.audio(audio, format='audio/mp3')
         else:
             st.write("Invalid prediction index")
     else:
