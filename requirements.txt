@@ -3,3 +3,5 @@ tensorflow
 numpy
 tensorflow_hub
 pillow
+gTTs
+IPython
